@@ -4,6 +4,16 @@ Time Travel is a CLI utility that helps you look up the current date and time
 from your colleagues across the globe. Define a username as well as a region in
 `settings.json` and you're good to go~
 
+## Installation
+
+```bash
+    # enter project root, check wheel installation
+    python -m pip install --user wheel
+    # build wheel and install midorianki
+    python setup.py bdist_wheel
+    python -m pip install -e .
+```
+
 ## Basic Usage
 
 ```bash
