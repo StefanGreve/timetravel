@@ -9,9 +9,9 @@ from your colleagues across the globe. Define a username as well as a region in
 ```bash
     # enter project root, check wheel installation
     python -m pip install --user wheel
-    # build wheel and install midorianki
+    # build wheel and install timetravel
     python setup.py bdist_wheel
-    python -m pip install -e .
+    python -m pip install -r requirements.txt
 ```
 
 ## Basic Usage
