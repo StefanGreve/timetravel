@@ -1,0 +1,19 @@
+{
+    "name" : {
+        "fennec" : {
+            "timezone" : "Europe/Budapest"
+        },
+        "mazawa" : {
+            "timezone" : "Europe/Germany"
+        },
+        "matty" : {
+            "timezone" : "Asia/Dubai"
+        },
+        "brian" : {
+            "timezone" : "America/Chicago"
+        },
+        "kinger" : {
+            "timezone" : "Canada/Eastern"
+        }
+    }
+}
