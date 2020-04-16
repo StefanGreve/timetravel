@@ -1,11 +1,22 @@
 #!/usr/bin/env python
 
+import shutil
 from setuptools import setup
+from src import utils
+
+from pathlib import Path
 
 readme = ""
 
 with open("readme.md", 'r', encoding = "utf-8") as file:
     readme = file.read()
+
+# move settings file
+settings = 'settings.json'
+shutil.copy(
+    Path.cwd().joinpath('src').joinpath(settings), 
+    utils.path_settings('timetravel').joinpath(settings)
+)
 
 setup(
     author = "Stefan Greve",
@@ -20,6 +31,8 @@ setup(
     package_dir = { '' : 'src' },
     install_requires = [
         'click',
+        'colorama',
+        'pathlib',
         'python-dateutil'
     ],
 

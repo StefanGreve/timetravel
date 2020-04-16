@@ -2,8 +2,10 @@
 
 import json
 from datetime import datetime
+import utils
 
 import click
+from pathlib import Path
 from dateutil.tz import gettz
 
 @click.group(invoke_without_command = True)
@@ -12,14 +14,16 @@ from dateutil.tz import gettz
 def cli(ctx, user):
     ctx.ensure_object(dict)
     ctx.obj['USER'] = user
+    ctx.obj['SETTINGS'] = utils.path_settings('timetravel').joinpath('settings.json')
 
 @cli.command()
 @click.pass_context
 def now(ctx):
     """ Prints current date and time of a specified user. """
     user = ctx.obj['USER']
+    settings = ctx.obj['SETTINGS']
 
-    with open("./settings.json", encoding = "utf-8", mode = "r") as settings:
+    with open(settings, encoding = "utf-8", mode = "r") as settings:
         # retrieve user timezone from settings
         user_tz = json.loads(settings.read())['name'][user]['timezone']
         now = datetime.now().astimezone(gettz(user_tz))
@@ -30,10 +34,12 @@ def now(ctx):
 
 
 @cli.command()
-def all():
+@click.pass_context
+def all(ctx):
     """ Reads and lists all users from settings. """
+    settings = ctx.obj['SETTINGS']
 
-    with open("./settings.json", encoding = "utf-8", mode = "r") as settings:
+    with open(settings, encoding = "utf-8", mode = "r") as settings:
         users = json.loads(settings.read())['name']
 
         for index, user in enumerate(users):
