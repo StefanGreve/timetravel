@@ -25,6 +25,19 @@ from your colleagues across the globe. Define a username as well as a region in
     python timetravel.py --user mazawa now
 ```
 
+## Notes
+
+The user-defined configurations are stored in a JSON file. Once the project ran through `setup.py` a copy will be stored in
+
+```bash
+# windows
+C:\Users\Stefan Greve\AppData\Roaming\timetravel\settings.json
+# linux
+etc/timetravel/settings.json
+```
+
+Changes to the configuration file should be made there, and not in `./src/settings.json`.
+
 ## TODO
 
 - [ ] Implement a method that lets the user add a new entry to `settings.json` from the terminal. The available timezones are available in `pytz` as a list (currently not a project dependency); this is not very convenient, which is why I'd like to find a better solution for the `--city` option before I add this method.
