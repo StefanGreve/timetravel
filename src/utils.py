@@ -3,16 +3,20 @@
 import os
 from platform import system
 
-from pathlib import Path
+from pathlib import WindowsPath, PosixPath
+
+def read_file(file):
+    with open(file, 'r', encoding = "utf-8") as file:
+        return file.read()
 
 def path_settings(directory):
     dest = os.getcwd()
 
     if system() == 'Windows':
-        appdata = Path(os.getenv('APPDATA'))
+        appdata = WindowsPath(os.getenv('APPDATA'))
         dest = appdata.joinpath(directory)
     else:
-        dest = PurePosixPath('/etc').joinpath(directory)
+        dest = PosixPath('/etc').joinpath(directory)
 
     dest.mkdir(parents = True, exist_ok = True)
 
