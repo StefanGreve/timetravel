@@ -22,7 +22,7 @@ from your colleagues across the globe. Define a username as well as a region in
     # print all users from your settings
     python timetravel.py all
     # lookup current time
-    python timetravel.py --user mazawa now
+    python timetravel.py --user mazawa time
 ```
 
 ## Notes
