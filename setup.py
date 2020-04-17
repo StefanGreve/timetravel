@@ -6,11 +6,6 @@ from src import utils
 
 from pathlib import Path
 
-readme = ""
-
-with open("readme.md", 'r', encoding = "utf-8") as file:
-    readme = file.read()
-
 # move settings file
 settings = 'settings.json'
 shutil.copy(
@@ -22,9 +17,9 @@ setup(
     author = "Stefan Greve",
     keywords = "python cli collaboration",
     name = 'timetravel',
-    version = '1.0',
+    version = "1.0",
     description = "Walltime utility script for collaboration.",
-    long_description = readme,
+    long_description = utils.read_file("readme.md"),
     long_description_content_type = "text/markdown",
     url = "https://github.com/StefanGreve/timetravel",
     py_modules = [ "timetravel" ],
