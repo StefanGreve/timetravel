@@ -17,7 +17,7 @@ setup(
     author = "Stefan Greve",
     keywords = "python cli collaboration",
     name = 'timetravel',
-    version = "1.0",
+    version = "1.1",
     description = "Walltime utility script for collaboration.",
     long_description = utils.read_file("readme.md"),
     long_description_content_type = "text/markdown",

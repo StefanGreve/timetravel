@@ -11,7 +11,7 @@ from dateutil.tz import gettz
 def print_version(ctx, param, value):
     if not value or ctx.resilient_parsing:
         return
-    click.secho(f"Python Timetravel Version {'1.0'}", fg = 'yellow')
+    click.secho(f"Python Timetravel Version {'1.1'}", fg = 'yellow')
     click.echo(f"Copyright (C) {date.today().year} Stefan Greve")
     click.echo("License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>")
     click.echo("This is free software: you are free to change and redistribute it.")
@@ -19,8 +19,8 @@ def print_version(ctx, param, value):
     ctx.exit()
 
 @click.group(invoke_without_command = True)
-@click.option('--user', type = click.STRING, help = "The username as defined in settings.json")
-@click.option('--version', is_flag = True, callback = print_version, expose_value = False, is_eager = True)
+@click.option('--user', type = click.STRING, help = "Set username as defined in settings.json")
+@click.option('--version', is_flag = True, callback = print_version, expose_value = False, is_eager = True, help = "Display package version information.")
 @click.pass_context
 def cli(ctx, user):
     ctx.ensure_object(dict)
