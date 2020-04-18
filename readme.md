@@ -47,7 +47,7 @@ import pytz
 print(pytz.all_timezones)
 ```
 
-- [ ]  Add `--city` option as second (alternative) input for the `now` method. I have looked into this a little, and came up with a solution that would require a Google API Key. For example
+- [ ]  Add `--city` option as second (alternative) input for the `time` method. I have looked into this a little, and came up with a solution that would require a Google API Key. For example
 
 ```python
 from random import randint
