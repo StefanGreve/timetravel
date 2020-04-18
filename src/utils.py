@@ -1,13 +1,20 @@
 #!/usr/bin/env python
 
 import os
+import shutil
 from platform import system
 
-from pathlib import WindowsPath, PosixPath
+from pathlib import WindowsPath, PosixPath, Path
 
 def read_file(file):
     with open(file, 'r', encoding = "utf-8") as file:
         return file.read()
+
+def copy_settings(filename):
+    shutil.copy(
+    Path.cwd().joinpath('src').joinpath(filename), 
+    path_settings('timetravel').joinpath(filename)
+)
 
 def path_settings(directory):
     dest = os.getcwd()
