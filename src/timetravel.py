@@ -10,20 +10,25 @@ import click
 from pathlib import Path
 from dateutil.tz import gettz
 
+def print_date_now(timezone):
+    now = datetime.now().astimezone(gettz(timezone))
+    click.echo(f"{click.style('[', fg = 'yellow')}{now.strftime('%Y-%m-%d')}{click.style(']', fg = 'yellow')} ", nl=False)
+    click.echo(f"@ {click.style(now.strftime('%H:%M:%S'), fg = 'yellow')} ", nl = False)
+    click.echo(f"in {click.style(timezone)}.")  
+
 def print_version(ctx, param, value):
     meta = utils.path_settings('timetravel').joinpath('meta.json')
+    meta_content = json.loads(utils.read_file(meta))
     
     if not value or ctx.resilient_parsing:
         return
-    with open(meta, encoding = "utf-8", mode = "r") as meta:
-        meta = json.loads(meta.read())
 
-        click.secho(f"Python {meta['name']} Version {meta['version']}", fg = 'yellow')
-        click.echo(f"Copyright (C) {date.today().year} {meta['author']}")
-        click.echo("License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>")
-        click.echo("This is free software: you are free to change and redistribute it.")
-        click.echo("There is NO WARRANTY, to the extent permitted by law.")
-        ctx.exit()
+    click.secho(f"Python {meta_content['name']} Version {meta_content['version']}", fg = 'yellow')
+    click.echo(f"Copyright (C) {date.today().year} {meta_content['author']}")
+    click.echo("License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>")
+    click.echo("This is free software: you are free to change and redistribute it.")
+    click.echo("There is NO WARRANTY, to the extent permitted by law.")
+    ctx.exit()
 
 @click.group(invoke_without_command = True)
 @click.option('--user', type = click.STRING, help = "Sets username as defined in settings.json")
@@ -44,22 +49,19 @@ def time(ctx):
     city = ctx.obj['CITY']
     settings = ctx.obj['SETTINGS']
 
-    time = lambda tz: datetime.now().astimezone(gettz(tz))
+    settings_content = json.loads(utils.read_file(settings))
+    name = settings_content['name'].get(user, 'error')
 
-    with open(settings, encoding = "utf-8", mode = "r") as settings:
-        name = json.loads(settings.read())['name'].get(user, 'error')
-        if city:
-            raise NotImplementedError('You cannot use this option yet.')
-        if name != 'error':
-            user_tz = name['timezone']
-            now = time(user_tz)
-            click.echo(f"{click.style('[', fg = 'yellow')}{now.strftime('%Y-%m-%d')}{click.style(']', fg = 'yellow')} ", nl=False)
-            click.echo(f"@ {click.style(now.strftime('%H:%M:%S'), fg = 'yellow')} ", nl = False)
-            click.echo(f"in {click.style(user_tz)}.")  
-        else:
-            click.secho(f"Error Code {errno.EINVAL}: {os.strerror(errno.EINVAL)}", err = True, fg = 'red')
-            click.secho(f"This user hasn't been defined in your settings yet.", fg = 'yellow')
-            click.secho(f"You can add new users in '{utils.path_settings('timetravel')}'.", fg = 'yellow')
+    if city:
+        raise NotImplementedError('You cannot use this option yet.')
+    elif (user and name != 'error'):
+        print_date_now(name['timezone'])        
+    elif name == 'error':
+        click.secho(f"Error Code {errno.EINVAL}: {os.strerror(errno.EINVAL)}", err = True, fg = 'red')
+        click.secho(f"This user hasn't been defined in your settings yet.", fg = 'yellow')
+        click.secho(f"You can add new users in '{utils.path_settings('timetravel')}'.", fg = 'yellow')
+    else:
+        click.secho(f"An unknown error has occurred", err = True, fg = 'red')
 
 
 @cli.command()
