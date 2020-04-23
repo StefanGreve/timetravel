@@ -14,10 +14,10 @@ def read_file(file):
 def read_json(file):
     return json.loads(read_file(file))
 
-def copy_settings(filename):
+def copy_settings(filename, project_name):
     shutil.copy(
         Path.cwd().joinpath('src').joinpath(filename), 
-        path_settings('timetravel').joinpath(filename)
+        path_settings(project_name).joinpath(filename)
     )
 
 def path_settings(directory):
