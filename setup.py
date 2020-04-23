@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import json
-import shutil
 from setuptools import setup
 from src import utils
 
@@ -9,15 +8,12 @@ from pathlib import Path
 
 #region pre-setup procedures
 
-settings = 'settings.json'
-meta = 'meta.json'
+META, SETTINGS, PROJECT = "meta.json", "settings.json", "timetravel"
 
-utils.copy_settings(meta)
-utils.copy_settings(settings)
+utils.copy_settings(META, PROJECT)
+utils.copy_settings(META, PROJECT)
 
-metadata = None
-with open(utils.path_settings('timetravel').joinpath(meta), encoding = "utf-8", mode = "r") as metadata:
-        metadata = json.loads(metadata.read())
+metadata = utils.read_json(utils.path_settings(PROJECT).joinpath(META))
 
 #endregion
 
@@ -30,7 +26,7 @@ setup(
     long_description = utils.read_file("readme.md"),
     long_description_content_type = "text/markdown",
     url = "https://github.com/StefanGreve/timetravel",
-    py_modules = [ "timetravel" ],
+    py_modules = [ PROJECT ],
     package_dir = { '' : 'src' },
     install_requires = [
         'click',
