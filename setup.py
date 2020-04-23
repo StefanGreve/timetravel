@@ -11,7 +11,7 @@ from pathlib import Path
 META, SETTINGS, PROJECT = "meta.json", "settings.json", "timetravel"
 
 utils.copy_settings(META, PROJECT)
-utils.copy_settings(META, PROJECT)
+utils.copy_settings(SETTINGS, PROJECT)
 
 metadata = utils.read_json(utils.path_settings(PROJECT).joinpath(META))
 
