@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import json
 import shutil
 from platform import system
 
@@ -10,11 +11,14 @@ def read_file(file):
     with open(file, 'r', encoding = "utf-8") as file:
         return file.read()
 
+def read_json(file):
+    return json.loads(read_file(file))
+
 def copy_settings(filename):
     shutil.copy(
-    Path.cwd().joinpath('src').joinpath(filename), 
-    path_settings('timetravel').joinpath(filename)
-)
+        Path.cwd().joinpath('src').joinpath(filename), 
+        path_settings('timetravel').joinpath(filename)
+    )
 
 def path_settings(directory):
     dest = os.getcwd()
