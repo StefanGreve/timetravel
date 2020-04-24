@@ -31,7 +31,6 @@ setup(
     install_requires = [
         'click',
         'colorama',
-        'pathlib',
         'python-dateutil'
     ],
 
