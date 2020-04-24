@@ -44,9 +44,8 @@ def cli(ctx, user, city):
 def time(ctx):
     user = ctx.obj['USER']
     city = ctx.obj['CITY']
-    settings = ctx.obj['SETTINGS']
 
-    name = utils.read_json(settings)['name'].get(user, 'error')
+    name = utils.read_json(ctx.obj['SETTINGS'])['name'].get(user, 'error')
 
     if city:
         raise NotImplementedError('You cannot use this option yet.')
