@@ -50,19 +50,14 @@ print(pytz.all_timezones)
 - [ ]  Add `--city` option as second (alternative) input for the `time` method. I have looked into this a little, and came up with a solution that would require a Google API Key. For example
 
 ```python
-from random import randint
-
 from faker import Faker
-from fakers.providers import user_agent
 from geopy.geocoders import GoogleV3
 
 def city_timezone(name):
     """ Translates name of city/address into a timezone. """
-    fake = Faker()
-    fake.seed_instance(randint(0,9999))
     google = GoogleV3(
         api_key = 'REDACTED',
-        user_agent = firefox()
+        user_agent = Faker().user_agent()
     )
     return google.timezone(google.geocode(name).point)
 ```
