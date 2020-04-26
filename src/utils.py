@@ -14,11 +14,14 @@ def read_file(file):
 def read_json(file):
     return json.loads(read_file(file))
 
-def copy_settings(filename, project_name):
-    shutil.copy(
-        Path.cwd().joinpath('src').joinpath(filename), 
-        path_settings(project_name).joinpath(filename)
-    )
+def copy_settings(filename, project_name, overwrite = False):
+    target_file= path_settings(project_name).joinpath(filename)
+
+    if not target_file.exists() or (target_file.exists and overwrite):
+        shutil.copy(
+            Path.cwd().joinpath('src').joinpath(filename),
+            target_file
+        )
 
 def path_settings(directory):
     dest = os.getcwd()
